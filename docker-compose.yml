@@ -1,0 +1,39 @@
+version: "3.1"
+services:
+    db:
+        image: mysql
+        ports: 
+            - "33307:3306"
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_DATABASE: pueblosDb
+            MYSQL_PASSWORD: john
+            MYSQL_ROOT_PASSWORD: john
+        volumes:
+            - ./dump:/docker-entrypoint-initdb.d
+            - ./conf:/etc/mysql/conf.d
+            - persistent:/var/lib/mysql
+        networks:
+            - default
+    www:
+        build: .
+        ports: 
+            - "80:80"
+        volumes:
+            - ./www:/var/www/html
+        links:
+            - db
+        networks:
+            - default
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links: 
+            - db:db
+        ports:
+            - 8002:80
+        environment:
+            MYSQL_USER: root
+            MYSQL_PASSWORD: john
+            MYSQL_ROOT_PASSWORD: john 
+volumes:
+    persistent:
