@@ -6,7 +6,7 @@ services:
             - "33307:3306"
         command: --default-authentication-plugin=mysql_native_password
         environment:
-            MYSQL_DATABASE: pueblosDb
+            MYSQL_DATABASE: restaurantDb
             MYSQL_PASSWORD: john
             MYSQL_ROOT_PASSWORD: john
         volumes:

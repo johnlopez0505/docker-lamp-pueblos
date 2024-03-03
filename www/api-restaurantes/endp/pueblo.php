@@ -81,7 +81,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //Recuperamos todos los pueblos
         $pueblos = $pueblo->get($params);
         //$auth->insertarLog('lleva a solicitud de pueblos');
-        $url_raiz_img = "http://".$_SERVER['HTTP_HOST']."/api-pueblos/public/img";
+        $url_raiz_img = "http://".$_SERVER['HTTP_HOST']."/api-restaurantes/public/img";
 		for($i=0; $i< count($pueblos); $i++){
 			if (!empty($pueblos[$i]['imagen']))
 				$pueblos[$i]['imagen'] = $url_raiz_img ."/". $pueblos[$i]['imagen'];
@@ -153,7 +153,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $id_param['id'] = $insert_id_pueblo;
         $pueblo = $pueblo->get($id_param);
         if($pueblo[0]['imagen'] !='')
-            $name_file =  "http://".$_SERVER['HTTP_HOST']."/api-pueblos/public/img/".$pueblo[0]['imagen'];
+            $name_file =  "http://".$_SERVER['HTTP_HOST']."/api-restaurantes/public/img/".$pueblo[0]['imagen'];
         else
             $name_file = '';
 
@@ -217,7 +217,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
        
 
         if($pueblo[0]['imagen'] !='')
-            $name_file =  "http://".$_SERVER['HTTP_HOST']."/api-pueblos/public/img/".$pueblo[0]['imagen'];
+            $name_file =  "http://".$_SERVER['HTTP_HOST']."/api-restaurantes/public/img/".$pueblo[0]['imagen'];
         else
             $name_file = '';
             

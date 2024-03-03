@@ -8,7 +8,7 @@ class AuthModel
 	private $connection;
 	
 	public function __construct(){
-		$this->connection = new mysqli('db', 'root', 'john', 'pueblosDb', '3306');
+		$this->connection = new mysqli('db', 'root', 'john', 'restaurantDb', '3306');
 
 		if($this->connection->connect_errno){
 			echo 'Error de conexión a la base de datos';
