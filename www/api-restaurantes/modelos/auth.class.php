@@ -125,7 +125,6 @@ class Authentication extends AuthModel
     {
 		
         if(!isset($_SERVER['HTTP_API_KEY'])){ 
-			
 			echo "No existe HTTP_API_KEY";
             $response = array(
                 'result' => 'error',
