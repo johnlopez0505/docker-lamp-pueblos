@@ -2,9 +2,9 @@
 require_once '../respuestas/response.php';
 require_once '../modelos-datos/database.php';
 
-class Pueblo extends Database
+class restaurante extends Database
 {
-	private $table = 'pueblos';
+	private $table = 'restaurantes';
 
 	//parámetros permitidos para hacer consultas selección.
 	private $allowedConditions_get = array(
@@ -76,7 +76,7 @@ private $allowedConditions_update = array(
 		}
 
 		/*
-		Tengo que comprobar la extensión de la imagen del pueblo
+		Tengo que comprobar la extensión de la imagen del restaurante
 		*/
 		if (isset($data['imagen']) & !empty($data['imagen'])){
 			$img_array = explode(';base64,', $data['imagen']);
@@ -160,7 +160,7 @@ y la ejecutará.
 				$extension = strtoupper(explode('/', $img_array[0])[1]); //formato de la imagen
 				$datos_imagen = $img_array[1]; //aqui me quedo con los datos de la imagen
 				$nombre_imagen = uniqid(); //creo un único id.
-				//del directorio actual de user.class, subo un nivel (1) y estando en el directorio api-pueblos, concateno public\img
+				//del directorio actual de user.class, subo un nivel (1) y estando en el directorio api-restaurantes, concateno public\img
 				$path = dirname(__DIR__, 1)."/public/img/".$nombre_imagen.".".$extension;
 				file_put_contents($path, base64_decode($datos_imagen));  //subimos la imagen al servidor.
 				$params['imagen'] = $nombre_imagen.'.'.$extension;  //pasamos como parametro en foto, con el nombre y extensión completo.
@@ -228,7 +228,7 @@ y la ejecutará.
 			/*if (!unlink($path)){
 					$response = array(
 						'result' => 'warning',
-						'details' => 'No se ha podido eliminar la imagen actual del pueblo'
+						'details' => 'No se ha podido eliminar la imagen actual del restaurante'
 					);	
 					Response::result(200, $response);
 					exit;
@@ -268,7 +268,7 @@ y la ejecutará.
  * y por tanto arma una respuesta de error.
  * 
  * Si todo ha ido bien, retorna de la función a user y éste acaba.
- * También hay que eliminar la imagen de ese pueblo.
+ * También hay que eliminar la imagen de ese restaurante.
  */
 	public function delete($id)
 	{
@@ -281,7 +281,7 @@ y la ejecutará.
 			if (!unlink($path)){
 				$response = array(
 					'result' => 'warning',
-					'details' => 'No se ha podido eliminar la imagen del pueblo'
+					'details' => 'No se ha podido eliminar la imagen del restaurante'
 				);	
 				Response::result(200, $response);
 				exit;

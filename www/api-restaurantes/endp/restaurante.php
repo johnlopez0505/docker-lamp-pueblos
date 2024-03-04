@@ -1,25 +1,25 @@
 <?php
 require_once '../respuestas/response.php';
-require_once '../modelos/pueblo.class.php';
+require_once '../modelos/restaurante.class.php';
 require_once '../modelos/auth.class.php';
 
 /**
- * endpoint para la gestión de datos con los pueblos.
- * Get (para objeter todos los pueblos)
+ * endpoint para la gestión de datos con los restaurantes.
+ * Get (para objeter todos los restaurantes)
  *  - token (para la autenticación y obtención del id usuario)
  * 
- * Post (para la creación de pueblo)
+ * Post (para la creación de restaurante)
  *  - token (para la autenticación y obtención del id usuario)
- *  - datos del pueblo por body
+ *  - datos del restaurante por body
  * 
- * Put (para la actualización del pueblo)
+ * Put (para la actualización del restaurante)
  *  *  - token (para la autenticación y obtención del id usuario)
- *  - id del pueblo por parámetro
- *  - datos nuevos del pueblo por body
+ *  - id del restaurante por parámetro
+ *  - datos nuevos del restaurante por body
  * 
- * Delete (para la eliminación del pueblo)
+ * Delete (para la eliminación del restaurante)
  *  *  - token (para la autenticación y obtención del id usuario)
- *  - id del pueblo por parámetro
+ *  - id del restaurante por parámetro
  * 
  */
 
@@ -31,7 +31,7 @@ $auth->verify();
 
 
 //hasta aquí, el token está perfectamente verificada. Creamos modelo para que pueda gestionar las peticiones
-$pueblo = new Pueblo();
+$restaurante = new restaurante();
 
 switch ($_SERVER['REQUEST_METHOD']) {
 	case 'GET':
@@ -78,34 +78,34 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 exit;
         }
         */
-        //Recuperamos todos los pueblos
-        $pueblos = $pueblo->get($params);
-        //$auth->insertarLog('lleva a solicitud de pueblos');
+        //Recuperamos todos los restaurantes
+        $restaurantes = $restaurante->get($params);
+        //$auth->insertarLog('lleva a solicitud de restaurantes');
         $url_raiz_img = "http://".$_SERVER['HTTP_HOST']."/api-restaurantes/public/img";
-		for($i=0; $i< count($pueblos); $i++){
-			if (!empty($pueblos[$i]['imagen']))
-				$pueblos[$i]['imagen'] = $url_raiz_img ."/". $pueblos[$i]['imagen'];
+		for($i=0; $i< count($restaurantes); $i++){
+			if (!empty($restaurantes[$i]['imagen']))
+				$restaurantes[$i]['imagen'] = $url_raiz_img ."/". $restaurantes[$i]['imagen'];
 		}
 
 
 /*
         $response = array(
             'result'=> 'ok',
-            'details'=>"Hay pueblos"
+            'details'=>"Hay restaurantes"
         );
         Response::result(200, $response);
         break;
 */
         $response = array(
             'result'=> 'ok',
-            'pueblos'=> $pueblos
+            'restaurantes'=> $restaurantes
         );
-       // $auth->insertarLog('devuelve pueblos'); 
+       // $auth->insertarLog('devuelve restaurantes'); 
         Response::result(200, $response);
         break;
     
     case 'POST':
-       // $auth->insertaLog("Recibe petición de creacion de pueblo");
+       // $auth->insertaLog("Recibe petición de creacion de restaurante");
 
         /**
          * Recibimos el json con los datos a insertar, pero necesitamos
@@ -148,18 +148,18 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
 
 
-        $insert_id_pueblo = $pueblo->insert($params);
+        $insert_id_restaurante = $restaurante->insert($params);
         //Debo hacer una consulta, para devolver tambien el nombre de la imagen.
-        $id_param['id'] = $insert_id_pueblo;
-        $pueblo = $pueblo->get($id_param);
-        if($pueblo[0]['imagen'] !='')
-            $name_file =  "http://".$_SERVER['HTTP_HOST']."/api-restaurantes/public/img/".$pueblo[0]['imagen'];
+        $id_param['id'] = $insert_id_restaurante;
+        $restaurante = $restaurante->get($id_param);
+        if($restaurante[0]['imagen'] !='')
+            $name_file =  "http://".$_SERVER['HTTP_HOST']."/api-restaurantes/public/img/".$restaurante[0]['imagen'];
         else
             $name_file = '';
 
         $response = array(
 			'result' => 'ok insercion',
-			'insert_id' => $insert_id_pueblo,
+			'insert_id' => $insert_id_restaurante,
             'file_img'=> $name_file
 		);
 
@@ -169,14 +169,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     case 'PUT':
         /*
-        Es totalmente necesario tener los parámetros del id del pueblo a modificar
+        Es totalmente necesario tener los parámetros del id del restaurante a modificar
         y también el id del usuario, aunque esto lo puedo sacar del token.
         */
 		$params = json_decode(file_get_contents('php://input'), true);
        /* if (!isset($params) ||  !isset($_GET['id']) || empty($_GET['id']) || !isset($params['id_usuario']) || empty($params['id_usuario'])){
             $response = array(
 				'result' => 'error',
-				'details' => 'Error en la solicitud de actualización del pueblo'
+				'details' => 'Error en la solicitud de actualización del restaurante'
 			);
 
 			Response::result(400, $response);
@@ -187,7 +187,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         if (!isset($params) || !isset($_GET['id']) || empty($_GET['id'])  ){
             $response = array(
 				'result' => 'error',
-				'details' => 'Error en la solicitud de actualización del pueblo. No has pasado el id del pueblo'
+				'details' => 'Error en la solicitud de actualización del restaurante. No has pasado el id del restaurante'
 			);
 
 			Response::result(400, $response);
@@ -211,13 +211,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
 
 
-        $pueblo->update($_GET['id'], $params);  //actualizo ese pueblo.
+        $restaurante->update($_GET['id'], $params);  //actualizo ese restaurante.
         $id_param['id'] = $_GET['id'];
-        $pueblo = $pueblo->get($id_param);
+        $restaurante = $restaurante->get($id_param);
        
 
-        if($pueblo[0]['imagen'] !='')
-            $name_file =  "http://".$_SERVER['HTTP_HOST']."/api-restaurantes/public/img/".$pueblo[0]['imagen'];
+        if($restaurante[0]['imagen'] !='')
+            $name_file =  "http://".$_SERVER['HTTP_HOST']."/api-restaurantes/public/img/".$restaurante[0]['imagen'];
         else
             $name_file = '';
             
@@ -246,7 +246,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 			exit;
 		}
 
-		$pueblo->delete($_GET['id']);
+		$restaurante->delete($_GET['id']);
 
 		$response = array(
 			'result' => 'ok'

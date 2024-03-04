@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `api-pueblos`
+-- Base de datos: `api-restaurantes`
 --
 
 -- --------------------------------------------------------
@@ -42,10 +42,10 @@ INSERT INTO `log` (`id`, `log`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pueblos`
+-- Estructura de tabla para la tabla `restaurantes`
 --
 
-CREATE TABLE `pueblos` (
+CREATE TABLE `restaurantes` (
   `id` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
@@ -54,15 +54,15 @@ CREATE TABLE `pueblos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `pueblos`
+-- Volcado de datos para la tabla `restaurantes`
 --
 
-INSERT INTO `pueblos` (`id`, `id_usuario`, `nombre`, `descripcion`, `imagen`) VALUES
-(1, 3, 'Socuellamos', 'pueblo de Sonia', NULL),
-(2, 3, 'Chinchilla', 'pueblo de 10.000 hb', NULL),
-(3, 2, 'Martos', 'pueblo de 8.000 hb', NULL),
-(4, 2, 'Mancha Real', 'pueblo de 10.000 hb', NULL),
-(6, 3, 'Lezuza', 'Pueblo ibero-romano de Albacete', NULL);
+INSERT INTO `restaurantes` (`id`, `id_usuario`, `nombre`, `descripcion`, `imagen`) VALUES
+(1, 3, 'Socuellamos', 'restaurante de Sonia', NULL),
+(2, 3, 'Chinchilla', 'restaurante de 10.000 hb', NULL),
+(3, 2, 'Martos', 'restaurante de 8.000 hb', NULL),
+(4, 2, 'Mancha Real', 'restaurante de 10.000 hb', NULL),
+(6, 3, 'Lezuza', 'restaurante ibero-romano de Albacete', NULL);
 
 -- --------------------------------------------------------
 
@@ -100,9 +100,9 @@ ALTER TABLE `log`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `pueblos`
+-- Indices de la tabla `restaurantes`
 --
-ALTER TABLE `pueblos`
+ALTER TABLE `restaurantes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -122,9 +122,9 @@ ALTER TABLE `log`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `pueblos`
+-- AUTO_INCREMENT de la tabla `restaurantes`
 --
-ALTER TABLE `pueblos`
+ALTER TABLE `restaurantes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --

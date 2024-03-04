@@ -231,7 +231,7 @@ y la ejecutará.
 				$extension = strtoupper(explode('/', $img_array[0])[1]); //formato de la imagen
 				$datos_imagen = $img_array[1]; //aqui me quedo con la imagen
 				$nombre_imagen = uniqid(); //creo un único id.
-				//del directorio actual de user.class, subo un nivel (1) y estando en el directorio api-pueblos, concateno public\img
+				//del directorio actual de user.class, subo un nivel (1) y estando en el directorio api-restaurantes, concateno public\img
 				$path = dirname(__DIR__, 1)."/public/img/".$nombre_imagen.".".$extension;
 				/*echo "La imagen es ".$nombre_imagen.".".$extension;
 				echo "El path es ".$path;
