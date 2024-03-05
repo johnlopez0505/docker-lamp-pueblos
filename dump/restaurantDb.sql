@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `log` (
-  `id` int(11) NOT NULL,
+  `id` int(6) NOT NULL AUTO_INCREMENT,
   `log` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -36,8 +36,8 @@ CREATE TABLE `log` (
 -- Volcado de datos para la tabla `log`
 --
 
-INSERT INTO `log` (`id`, `log`) VALUES
-(5, 'recibido');
+INSERT INTO `log` (`log`) VALUES
+('recibido');
 
 -- --------------------------------------------------------
 
@@ -46,10 +46,12 @@ INSERT INTO `log` (`id`, `log`) VALUES
 --
 
 CREATE TABLE `restaurantes` (
-  `id` int(11) NOT NULL,
+  `id` int(7) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `descripcion` varchar(250) NOT NULL,
+  `ciudad` varchar(100) NOT NULL,
+  `provincia` varchar(100) NOT NULL,
+  `telefono` varchar(250) NOT NULL,
   `imagen` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -57,13 +59,8 @@ CREATE TABLE `restaurantes` (
 -- Volcado de datos para la tabla `restaurantes`
 --
 
-INSERT INTO `restaurantes` (`id`, `id_usuario`, `nombre`, `descripcion`, `imagen`) VALUES
-(1, 3, 'Socuellamos', 'restaurante de Sonia', NULL),
-(2, 3, 'Chinchilla', 'restaurante de 10.000 hb', NULL),
-(3, 2, 'Martos', 'restaurante de 8.000 hb', NULL),
-(4, 2, 'Mancha Real', 'restaurante de 10.000 hb', NULL),
-(6, 3, 'Lezuza', 'restaurante ibero-romano de Albacete', NULL);
-
+INSERT INTO `restaurantes` (`id_usuario`, `nombre`, `ciudad`,`provincia`,`telefono`, `imagen`) VALUES
+(1, 'Casa marcial', 'Arriondas','Asturias','985 84 09 91',null)
 -- --------------------------------------------------------
 
 --
@@ -71,7 +68,7 @@ INSERT INTO `restaurantes` (`id`, `id_usuario`, `nombre`, `descripcion`, `imagen
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL COMMENT 'clave principal',
+  `id` int(4) NOT NULL COMMENT 'clave principal',
   `email` varchar(150) NOT NULL,
   `password` varchar(240) NOT NULL,
   `nombre` varchar(200) NOT NULL,
@@ -85,9 +82,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `email`, `password`, `nombre`, `imagen`, `disponible`, `token`) VALUES
-(1, 'davidrodenasherraiz@dominio.com', '07d046d5fac12b3f82daf5035b9aae86db5adc8275ebfbf05ec83005a4a8ba3e', 'david rodenas herraiz', NULL, 1, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjIxMzczNzIsImRhdGEiOnsiaWQiOiIxIiwiZW1haWwiOiJkYXZpZHJvZEBnbWFpbC5jb20ifX0.FLlqJO30GgMiYWFNSXFjIWunenCjb7EnZJ30PSJdAN8'),
-(2, 'soniamenadelgadol@dominio.com', 'b90d33f2b12789d32691050a2083be28eb99985601a1f1a72efc9232e49306fd', 'sonia mena delgado', NULL, 1, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzM3NzU0MDEsImRhdGEiOnsiaWQiOiIyIiwiZW1haWwiOiJzb25pYW1lbmFkZWxAZ21haWwuY29tIn19.33d9tDvm1jRJ-fzdz1-leoRQ5EMnnrxuY7BNDqatl5g'),
-(3, 'srodher115@g.educaand.es', '324ca5355e9d7d5f60fb23b379f5bad7d4a12013a8b89b46ec2392c3021d3a27', 'santiago', NULL, 1, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzM3NzU2ODYsImRhdGEiOnsiaWQiOiIzIiwiZW1haWwiOiJzcm9kaGVyMTE1QGcuZWR1Y2FhbmQuZXMifX0.9Wb7_IMl_pLDzcPY8IH1SU4XUrOY5sdtC1Vhxr7_44c');
+(1, 'lopezcon1@hotmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'john lopez contreras', NULL, 1, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjIxMzczNzIsImRhdGEiOnsiaWQiOiIxIiwiZW1haWwiOiJkYXZpZHJvZEBnbWFpbC5jb20ifX0.FLlqJO30GgMiYWFNSXFjIWunenCjb7EnZJ30PSJdAN8'),
+(2, 'dario@hotmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'dario romero romera', NULL, 1, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzM3NzU0MDEsImRhdGEiOnsiaWQiOiIyIiwiZW1haWwiOiJzb25pYW1lbmFkZWxAZ21haWwuY29tIn19.33d9tDvm1jRJ-fzdz1-leoRQ5EMnnrxuY7BNDqatl5g'),
+(2, 'francisco@hotmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'francisco nolasco romero', NULL, 1, null),
+(3, 'srodher115@g.educaand.es', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'santiago', NULL, 1, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzM3NzU2ODYsImRhdGEiOnsiaWQiOiIzIiwiZW1haWwiOiJzcm9kaGVyMTE1QGcuZWR1Y2FhbmQuZXMifX0.9Wb7_IMl_pLDzcPY8IH1SU4XUrOY5sdtC1Vhxr7_44c');
 
 --
 -- Índices para tablas volcadas
@@ -118,21 +116,21 @@ ALTER TABLE `usuarios`
 --
 -- AUTO_INCREMENT de la tabla `log`
 --
-ALTER TABLE `log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+-- ALTER TABLE `log`
+--   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `restaurantes`
 --
-ALTER TABLE `restaurantes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+-- ALTER TABLE `restaurantes`
+--   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
-ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'clave principal', AUTO_INCREMENT=4;
-COMMIT;
+-- ALTER TABLE `usuarios`
+--   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'clave principal', AUTO_INCREMENT=4;
+-- COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
