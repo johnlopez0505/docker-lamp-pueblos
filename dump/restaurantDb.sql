@@ -78,7 +78,12 @@ INSERT INTO `usuarios` (`email`, `password`, `nombre`, `imagen`, `disponible`, `
 
  
 INSERT INTO `restaurantes` (`id_usuario`, `nombre`, `ciudad`,`provincia`,`telefono`, `imagen`) VALUES
-(1, 'Casa marcial', 'Arriondas','Asturias','985 84 09 91',null)
+(1, 'Casa marcial', 'Arriondas','Asturias','985 84 09 91','65edc2afbd06f.JPEG');
+(1, 'El cenador de Amós', 'Villa verde de Pontones', 'Cantabria', '942 50 82 43', '65edc5688c99e.JPEG');
+(1, 'Refectorio', 'Abadía Retuerta LeDomaine', 'Valladolid','983 68 76 00', '65edd4056af7a.JPEG');
+(1, 'Magoga', 'Cartagena', 'Región de Murcia','629 98 02 57', '65edd4ba630db.JPEG');
+(1, 'Casa El Loco', 'Jaén', 'Jaén','953 23 42 07', '65edd562e62e2.JPEG');
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

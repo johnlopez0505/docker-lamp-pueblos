@@ -11,7 +11,9 @@ class restaurante extends Database
 		'id',
 		'id_usuario',
 		'nombre',
-		'descripcion',
+		'ciudad',
+		'provincia',
+		'telefono',
 		'imagen',
 		'page'
 	);
@@ -21,20 +23,20 @@ class restaurante extends Database
 	private $allowedConditions_insert = array(
 		'id_usuario',
 		'nombre',
-		'descripcion',
-		'nombres',
-		'habitantes',
+		'ciudad',
+		'provincia',
+		'telefono',
 		'imagen'
 	);
 
 //parámetros permitidos para la actualización.
 private $allowedConditions_update = array(
-		'nombre',
-		'descripcion',
-		'nombres',
-		'habitantes',
-		'imagen',
-		'id_usuario'
+	'id_usuario',
+	'nombre',
+	'ciudad',
+	'provincia',
+	'telefono',
+	'imagen'
 	
 );
 
@@ -65,10 +67,29 @@ private $allowedConditions_update = array(
 			Response::result(400, $response);
 			exit;
 		}
-		if(!isset($data['descripcion']) || empty($data['descripcion'])){
+		if(!isset($data['ciudad']) || empty($data['ciudad'])){
 			$response = array(
 				'result' => 'error',
-				'details' => 'El campo descripcion es obligatorio'
+				'details' => 'El campo ciudad es obligatorio'
+			);
+
+			Response::result(400, $response);
+			exit;
+		}
+		if(!isset($data['provincia']) || empty($data['provincia'])){
+			$response = array(
+				'result' => 'error',
+				'details' => 'El campo provincia es obligatorio'
+			);
+
+			Response::result(400, $response);
+			exit;
+		}
+
+		if(!isset($data['telefono']) || empty($data['telefono'])){
+			$response = array(
+				'result' => 'error',
+				'details' => 'El campo telefono es obligatorio'
 			);
 
 			Response::result(400, $response);
