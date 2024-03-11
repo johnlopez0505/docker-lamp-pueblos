@@ -55,29 +55,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
 
 
-        //necesitamos que esté obligatoriamente el id_usuario
-        /*
-        if(!isset($_GET['id_usuario']) || empty($_GET['id_usuario'])){
-			$response = array(
-				'result' => 'error',
-				'details' => 'Error en la solicitud. id usuario desconocido '
-			);
-
-			Response::result(400, $response);
-			exit;
-		}
-        
-        if (!($auth->igualesIdUser($params["id_usuario"])))
-        {
-                $response = array(
-                            'result' => 'error',
-                            'details' => 'No tiene permisos para esa consulta'
-                );
-            
-                Response::result(400, $response);
-                exit;
-        }
-        */
         //Recuperamos todos los restaurantes
         $restaurantes = $restaurante->get($params);
         //$auth->insertarLog('lleva a solicitud de restaurantes');
@@ -88,14 +65,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
 		}
 
 
-/*
-        $response = array(
-            'result'=> 'ok',
-            'details'=>"Hay restaurantes"
-        );
-        Response::result(200, $response);
-        break;
-*/
         $response = array(
             'result'=> 'ok',
             'restaurantes'=> $restaurantes
@@ -117,21 +86,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
          */
         $params = json_decode(file_get_contents('php://input'), true);
      
-       /*if (!isset($params) || !isset($params["id_usuario"]) || empty($params["id_usuario"])  || 
-             !($auth->igualesIdUser($params["id_usuario"]))
-            ){
-                        $response = array(
-                            'result' => 'error',
-                            'details' => 'Error en la solicitud. Debes autenticarte o faltan parametros.'
-                        );
-            
-                        Response::result(400, $response);
-                        exit;
-            }
-        */
+       
             //si pasamos un id del usuario, comprobamos que sea el mismo que el del token
         if (isset($params['id_usuario']) && !empty($params['id_usuario'])){
-            //echo "Pasamos id_usuario es ".$_GET['id_usuario']." y el id del token es ".$auth->getIdUser();
             if ($params['id_usuario'] != $auth->getIdUser()){
                 $response = array(
                     'result' => 'error',
@@ -144,8 +101,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
             //hay que añadir a $params el id del usuario.
             $params['id_usuario'] = $auth->getIdUser();
         }
-
-
 
 
         $insert_id_restaurante = $restaurante->insert($params);
@@ -173,16 +128,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         y también el id del usuario, aunque esto lo puedo sacar del token.
         */
 		$params = json_decode(file_get_contents('php://input'), true);
-       /* if (!isset($params) ||  !isset($_GET['id']) || empty($_GET['id']) || !isset($params['id_usuario']) || empty($params['id_usuario'])){
-            $response = array(
-				'result' => 'error',
-				'details' => 'Error en la solicitud de actualización del restaurante'
-			);
-
-			Response::result(400, $response);
-			exit;
-        }
-        */
+      
 
         if (!isset($params) || !isset($_GET['id']) || empty($_GET['id'])  ){
             $response = array(

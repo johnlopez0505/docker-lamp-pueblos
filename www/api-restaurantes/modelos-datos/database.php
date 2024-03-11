@@ -4,9 +4,14 @@ class Database
 {
 	private $connection;  //guardará la conexión
 	private $results_page = 50; //número de resultados por página.
+	const DB_HOST = 'db';
+    const DB_USER = 'root';
+    const DB_PASSWORD = 'john';
+    const DB_NAME = 'restaurantDb';
+    const DB_PORT = '3306';
 
 	public function __construct(){
-		$this->connection = new mysqli('db', 'root', 'john', 'restaurantDb', '3306');
+		$this->connection = new mysqli(self::DB_HOST, self::DB_USER, self::DB_PASSWORD, self::DB_NAME, self::DB_PORT);
 		if($this->connection->connect_errno){
 			echo 'Error de conexión a la base de datos';
 			exit;
@@ -91,14 +96,16 @@ class Database
 		$results = $this->connection->query($query);
 		$resultArray = array();
 
-		//pasamos todos los registros a resultArray.
-		foreach ($results as $value) {
-			$resultArray[] = $value;
-			
+		if ($results) {
+			// Verifica si la consulta fue exitosa antes de intentar iterar
+			while ($value = $results->fetch_assoc()) {
+				$resultArray[] = $value;
+			}
+
+			$results->free();  // Libera la memoria del resultado
 		}
 
-	//	echo $resultArray['id'];exit;
-		return $resultArray;  //retornamos el array con los registros.
+		return $resultArray;
 	}
 	
 	

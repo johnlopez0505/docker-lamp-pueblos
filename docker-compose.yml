@@ -3,12 +3,12 @@ services:
     db:
         image: mysql
         ports: 
-            - "33307:3306"
+            - "${MYSQL_PORT}:3306"
         command: --default-authentication-plugin=mysql_native_password
         environment:
-            MYSQL_DATABASE: restaurantDb
-            MYSQL_PASSWORD: john
-            MYSQL_ROOT_PASSWORD: john
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         volumes:
             - ./dump:/docker-entrypoint-initdb.d
             - ./conf:/etc/mysql/conf.d
@@ -18,7 +18,7 @@ services:
     www:
         build: .
         ports: 
-            - "80:80"
+            - "${PORT}:80"
         volumes:
             - ./www:/var/www/html
         links:
@@ -30,10 +30,10 @@ services:
         links: 
             - db:db
         ports:
-            - 8002:80
+            - ${PHPMYADMIN_PORT}:80
         environment:
-            MYSQL_USER: root
-            MYSQL_PASSWORD: john
-            MYSQL_ROOT_PASSWORD: john 
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 volumes:
     persistent:

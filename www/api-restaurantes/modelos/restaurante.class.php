@@ -158,7 +158,6 @@ y la ejecutará.
 	public function insert($params)
 	{
 		foreach ($params as $key => $param) {
-			//echo $key."=".$param;
 			if(!in_array($key, $this->allowedConditions_insert)){
 				unset($params[$key]);
 				
@@ -246,16 +245,7 @@ y la ejecutará.
 				$path = dirname(__DIR__, 1)."/public/img/".$imagen_antigua;
 				//si no puedo eliminar la imagen antigua, lo indico.
 				unlink($path);
-			/*if (!unlink($path)){
-					$response = array(
-						'result' => 'warning',
-						'details' => 'No se ha podido eliminar la imagen actual del restaurante'
-					);	
-					Response::result(200, $response);
-					exit;
-					
-				}	
-				*/
+			
 				//ahora tengo que crear la nueva imagen y actualizar registro.
 				//PODRÍA ENCRIPTAR EL FICHERO, PERO NO LO VOY A HACER.
 				$img_array = explode(';base64,', $params['imagen']);  //datos de la imagen

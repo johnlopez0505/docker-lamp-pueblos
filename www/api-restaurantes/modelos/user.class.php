@@ -206,7 +206,7 @@ y la ejecutará.
 */
 	public function insert($params)
 	{
-		//recordamos que params, es un array asociaivo del tipo 'id'=>'1', 'nombre'=>'santi'
+		//recordamos que params, es un array asociaivo del tipo 'id'=>'1', 'nombre'=>'juan'
 		foreach ($params as $key => $param) {
 			//echo $key." = ".$params[$key];
 			if(!in_array($key, $this->allowedConditions_insert)){
@@ -225,8 +225,6 @@ y la ejecutará.
 		if($this->validateInsert($params)){
 			
 			if (isset($params['imagen'])){
-				/*echo "Tiene imagen";
-				exit;*/
 				$img_array = explode(';base64,', $params['imagen']);  //datos de la imagen
 				$extension = strtoupper(explode('/', $img_array[0])[1]); //formato de la imagen
 				$datos_imagen = $img_array[1]; //aqui me quedo con la imagen

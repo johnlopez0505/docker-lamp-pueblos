@@ -6,9 +6,14 @@
 class AuthModel
 {
 	private $connection;
+	const DB_HOST = 'db';
+    const DB_USER = 'root';
+    const DB_PASSWORD = 'john';
+    const DB_NAME = 'restaurantDb';
+    const DB_PORT = '3306';
 	
 	public function __construct(){
-		$this->connection = new mysqli('db', 'root', 'john', 'restaurantDb', '3306');
+		$this->connection = new mysqli(self::DB_HOST, self::DB_USER, self::DB_PASSWORD, self::DB_NAME, self::DB_PORT);
 
 		if($this->connection->connect_errno){
 			echo 'Error de conexión a la base de datos';
@@ -23,20 +28,28 @@ class AuthModel
 
 	 public function login($email, $password)
 	 {
-		 $query = "SELECT id, nombre, email FROM usuarios WHERE email = '$email' AND password = '$password'";
+
+		$query = "SELECT id, nombre, email FROM usuarios WHERE email = ? AND password = ?";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('ss', $email, $password);
+        $statement->execute();
+        $result = $statement->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+		//  $query = "SELECT id, nombre, email FROM usuarios WHERE email = '$email' AND password = '$password'";
  
-		 $results = $this->connection->query($query);
+		//  $results = $this->connection->query($query);
  
-		 $resultArray = array();
+		//  $resultArray = array();
  
-		 if($results != false){
-			 foreach ($results as $value) {
-				 $resultArray[] = $value;
-			 }
-		 }
+		//  if($results != false){
+		// 	 foreach ($results as $value) {
+		// 		 $resultArray[] = $value;
+		// 	 }
+		//  }
  
-		 //devuelve un array con el id, nombres y username.
-		 return $resultArray;
+		//  //devuelve un array con el id, nombres y username.
+		//  return $resultArray;
 	 }
  
 	 /**
@@ -45,15 +58,22 @@ class AuthModel
  
 	 public function update($id, $token)
 	 {
-		 $query = "UPDATE usuarios SET token = '$token' WHERE id = $id";
+
+		$query = "UPDATE usuarios SET token = ? WHERE id = ?";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('si', $token, $id);
+        $statement->execute();
+
+        return $statement->affected_rows;
+		//  $query = "UPDATE usuarios SET token = '$token' WHERE id = $id";
  
-		 $this->connection->query($query);
+		//  $this->connection->query($query);
 		 
-		 if(!$this->connection->affected_rows){
-			 return 0;
-		 }
+		//  if(!$this->connection->affected_rows){
+		// 	 return 0;
+		//  }
  
-		 return $this->connection->affected_rows;
+		//  return $this->connection->affected_rows;
 	 }
  
 	 /**
@@ -61,44 +81,66 @@ class AuthModel
 	  */
 	 public function getById($id)
 	 {
-		 $query = "SELECT token FROM usuarios WHERE id = $id";
+		$query = "SELECT token FROM usuarios WHERE id = ?";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('i', $id);
+        $statement->execute();
+
+        $result = $statement->get_result();
+        $resultArray = $result->fetch_all(MYSQLI_ASSOC);
+
+        return $resultArray;
+		//  $query = "SELECT token FROM usuarios WHERE id = $id";
  
-		 $results = $this->connection->query($query);
+		//  $results = $this->connection->query($query);
  
-		 $resultArray = array();
+		//  $resultArray = array();
  
-		 if($results != false){
-			 foreach ($results as $value) {
-				 $resultArray[] = $value;
-			 }
-		 }
+		//  if($results != false){
+		// 	 foreach ($results as $value) {
+		// 		 $resultArray[] = $value;
+		// 	 }
+		//  }
  
-		 return $resultArray;
+		//  return $resultArray;
 	 }
  
  
  
 	 public function insertarLog($milog){
-		 $query = "INSERT INTO log (log) VALUES('$milog')";
-		 //echo $query;exit;
-		 $this->connection->query($query);
+		$query = "INSERT INTO log (log) VALUES(?)";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('s', $milog);
+        $statement->execute();
+		//  $query = "INSERT INTO log (log) VALUES('$milog')";
+		//  //echo $query;exit;
+		//  $this->connection->query($query);
 	 }
  
 	 public function devUserModel($id)
 	 {
-		 $query = "SELECT id, nombre, email, imagen FROM usuarios WHERE id = $id";
+		$query = "SELECT id, nombre, email, imagen FROM usuarios WHERE id = ?";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('i', $id);
+        $statement->execute();
+
+        $result = $statement->get_result();
+        $resultArray = $result->fetch_all(MYSQLI_ASSOC);
+
+        return $resultArray;
+		//  $query = "SELECT id, nombre, email, imagen FROM usuarios WHERE id = $id";
  
-		 $results = $this->connection->query($query);
+		//  $results = $this->connection->query($query);
  
-		 $resultArray = array();
+		//  $resultArray = array();
  
-		 if($results != false){
-			 foreach ($results as $value) {
-				 $resultArray[] = $value;
-			 }
-		 }
+		//  if($results != false){
+		// 	 foreach ($results as $value) {
+		// 		 $resultArray[] = $value;
+		// 	 }
+		//  }
  
-		 //devuelve un array con el id, nombres y username.
-		 return $resultArray;
+		//  //devuelve un array con el id, nombres y username.
+		//  return $resultArray;
 	 }
  }

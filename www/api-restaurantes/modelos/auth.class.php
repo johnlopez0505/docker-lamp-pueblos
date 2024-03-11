@@ -10,9 +10,6 @@ class Authentication extends AuthModel
 	private $key = 'clave_secreta_muy_discreta';
 	private $idUser ='';
 
-
-	
-
 /**
  * sigInt, comprueba que le pasamos tanto el usuario como la password.
  * user será un array asociativo con el username y la password sin encriptar.
@@ -93,10 +90,6 @@ class Authentication extends AuthModel
 		return $this->idUser;
 	}
 
-
-
-
-
 /**
  * Este método es llamado para verificar si el usuario está autenticado.
  * Comprueba que lleva la cabecera HTTP_AUTHORIZATION. Nosotros incluímos en la cabecera
@@ -125,7 +118,6 @@ class Authentication extends AuthModel
     {
 		
         if(!isset($_SERVER['HTTP_API_KEY'])){ 
-			echo "No existe HTTP_API_KEY";
             $response = array(
                 'result' => 'error',
                 'details' => 'Usted no tiene los permisos para esta solicitud'
@@ -170,7 +162,6 @@ class Authentication extends AuthModel
 
 	public function getUser($id){
 		$result = parent::devUserModel($id);
-	//	echo $result[0]['nombre']; exit;
 		return $result[0];
 	}
 
